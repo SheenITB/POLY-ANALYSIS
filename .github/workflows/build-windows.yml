@@ -35,10 +35,7 @@ jobs:
         Copy-Item -Recurse PolyAnalysis iPlug2\Examples\
 
     - name: Download VST3 SDK
-      run: |
-        git clone https://github.com/steinbergmedia/vst3sdk.git VST_SDK
-        New-Item -ItemType Directory -Force iPlug2\Dependencies\IPlug\VST3_SDK
-        Copy-Item -Recurse VST_SDK\* iPlug2\Dependencies\IPlug\VST3_SDK\
+      run: git clone https://github.com/steinbergmedia/vst3sdk.git iPlug2\Dependencies\IPlug\VST3_SDK
 
     - name: Configure CMake
       run: |
