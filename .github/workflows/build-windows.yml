@@ -31,7 +31,7 @@ jobs:
 
     - name: Copy PolyAnalysis to iPlug2
       run: |
-        Remove-Item -Recurse -Force iPlug2\Examples\PolyAnalysis
+        if (Test-Path iPlug2\Examples\PolyAnalysis) { Remove-Item -Recurse -Force iPlug2\Examples\PolyAnalysis }
         xcopy PolyAnalysis iPlug2\Examples\ /E /I /H /Y
 
     - name: Download VST3 SDK
