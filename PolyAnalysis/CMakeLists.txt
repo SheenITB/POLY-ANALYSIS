@@ -38,8 +38,8 @@ iplug_add_plugin(${PROJECT_NAME}
 
   # -----------------------------------------------------------------------------
   # Copy Web UI bundle (built via Vite) into plugin Resources
-  # Source UI dist is built from /Users/endrinhysa/Desktop/POLY ANALYSIS 
-  set(UI_DIST_DIR "/Users/endrinhysa/Desktop/POLY ANALYSIS /dist")
+  # Source UI dist is built in the repo
+  set(UI_DIST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../dist")
   set(UI_DEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/resources/web")
 
   if(EXISTS "${UI_DIST_DIR}")
