@@ -1,0 +1,49 @@
+name: Build VST3 Windows
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup CMake
+      uses: lukka/get-cmake@latest
+
+    - name: Clone iPlug2
+      run: git clone https://github.com/iPlug2/iPlug2.git --depth 1
+
+    - name: Copy UI to iPlug2
+      run: |
+        mkdir iPlug2\Examples\PolyAnalysis\resources\web
+        xcopy dist\* iPlug2\Examples\PolyAnalysis\resources\web\ /E /I /H /Y
+
+    - name: Download VST3 SDK
+      run: |
+        curl -L -o VST3_SDK.zip https://download.steinberg.net/sdk_downloads/vstsdk3610_11_06_2018_build_37.zip
+        7z x VST3_SDK.zip
+        move VST_SDK iPlug2\Dependencies\IPlug\
+
+    - name: Configure CMake
+      run: |
+        cd iPlug2\Examples\PolyAnalysis
+        mkdir build-cmake
+        cd build-cmake
+        cmake .. -DCMAKE_BUILD_TYPE=Release
+
+    - name: Build VST3
+      run: |
+        cd iPlug2\Examples\PolyAnalysis\build-cmake
+        cmake --build . --config Release --target PolyAnalysis-vst3
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PolyAnalysis-vst3
+        path: iPlug2\Examples\PolyAnalysis\build-cmake\out\Release\PolyAnalysis.vst3
