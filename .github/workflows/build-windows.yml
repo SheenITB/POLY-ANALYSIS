@@ -36,8 +36,7 @@ jobs:
 
     - name: Download VST3 SDK
       run: |
-        curl -L -o VST3_SDK.zip https://download.steinberg.net/sdk_downloads/vstsdk3610_11_06_2018_build_37.zip
-        7z x VST3_SDK.zip
+        git clone https://github.com/steinbergmedia/vst3sdk.git VST_SDK
         move VST_SDK iPlug2\Dependencies\IPlug\
 
     - name: Configure CMake
