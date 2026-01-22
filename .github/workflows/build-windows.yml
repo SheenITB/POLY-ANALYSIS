@@ -29,11 +29,9 @@ jobs:
         npm install
         npm run build
 
-    - name: Copy UI and PolyAnalysis to iPlug2
+    - name: Copy PolyAnalysis to iPlug2
       run: |
-        mkdir iPlug2\Examples\PolyAnalysis\resources\web
-        xcopy dist\* iPlug2\Examples\PolyAnalysis\resources\web\ /E /I /H /Y
-        rd /s /q iPlug2\Examples\PolyAnalysis
+        Remove-Item -Recurse -Force iPlug2\Examples\PolyAnalysis
         xcopy PolyAnalysis iPlug2\Examples\ /E /I /H /Y
 
     - name: Download VST3 SDK
