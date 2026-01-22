@@ -19,6 +19,16 @@ jobs:
     - name: Clone iPlug2
       run: git clone https://github.com/iPlug2/iPlug2.git --depth 1
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Build UI
+      run: |
+        npm install
+        npm run build
+
     - name: Copy UI to iPlug2
       run: |
         mkdir iPlug2\Examples\PolyAnalysis\resources\web
